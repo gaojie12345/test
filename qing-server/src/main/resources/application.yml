@@ -1,0 +1,35 @@
+server:
+  port: 8787
+  servlet:
+    context-path: /qing
+
+
+spring:
+  application:
+    name: olsen
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp13737f04a50z938qo.mysql.rds.aliyuncs.com:3306/product_market_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: product_market_rw
+    password: Market@123
+
+
+mybatis-plus:
+  # xml文件路径
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类路径
+  type-aliases-package: com.gj.qing.mode.entity
+  configuration:
+    # 驼峰转换
+    map-underscore-to-camel-case: true
+    # 是否开启缓存
+    cache-enabled: false
+    # 打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 全局配置
+  global-config:
+    db-config:
+      # id自增类型(数据库id自增)
+      id-type: auto
+      # 数据库字段驼峰下划线转换
+      table-underline: true
