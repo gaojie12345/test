@@ -1,14 +1,12 @@
 package com.gj.qing.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.gj.qing.ResultInfo;
 import com.gj.qing.mode.dto.UserDto;
 import com.gj.qing.mode.entity.UserEntity;
 import com.gj.qing.service.UserSerivce;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,8 +26,8 @@ public class UserController {
 
     @PostMapping("/save")
     public ResultInfo<Object> save(@RequestBody UserDto dto) {
-        userSerivce.save(dto);
-        return ResultInfo.success();
+        Long id = userSerivce.save(dto);
+        return ResultInfo.success(id);
     }
 
     @PostMapping("/update")
@@ -39,9 +37,9 @@ public class UserController {
     }
 
 
-    @PostMapping("/detail")
-    public ResultInfo<Object> detail(@RequestBody UserDto dto) {
-        return ResultInfo.success(userSerivce.detail(dto));
+    @PostMapping("/detail/{userId}")
+    public ResultInfo<Object> detail(@PathVariable("userId") Long userId) {
+        return ResultInfo.success(userSerivce.detail(userId));
     }
 
 
@@ -49,5 +47,11 @@ public class UserController {
     public ResultInfo<Object> delete(@RequestBody UserDto dto) {
         userSerivce.delete(dto);
         return ResultInfo.success();
+    }
+
+    @PostMapping("/list")
+    public ResultInfo<Object> list(@RequestBody UserDto dto) {
+        IPage<UserEntity> page = userSerivce.getList(dto);
+        return ResultInfo.success(page);
     }
 }

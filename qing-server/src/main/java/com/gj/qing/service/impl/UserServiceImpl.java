@@ -1,7 +1,10 @@
 package com.gj.qing.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gj.qing.contants.Contants;
 import com.gj.qing.dao.UserMapper;
 import com.gj.qing.exception.OlsenException;
 import com.gj.qing.exception.OlsenExceptionEnum;
@@ -9,6 +12,7 @@ import com.gj.qing.mode.dto.UserDto;
 import com.gj.qing.mode.entity.UserEntity;
 import com.gj.qing.service.UserSerivce;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     private UserMapper userMapper;
 
     @Override
-    public void save(UserDto dto) {
+    public Long save(UserDto dto) {
         UserEntity user = new UserEntity();
         BeanUtils.copyProperties(dto, user);
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
-        user.setDelFlag(0);
+        user.setDelFlag(Contants.NO);
         userMapper.insert(user);
+        return user.getId();
     }
 
     @Override
@@ -54,10 +59,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     }
 
     @Override
-    public UserEntity detail(UserDto dto) {
+    public UserEntity detail(Long userId) {
         LambdaQueryWrapper<UserEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(UserEntity::getId, dto.getId());
-        wrapper.eq(UserEntity::getDelFlag, 0);
+        wrapper.eq(UserEntity::getId, userId);
+        wrapper.eq(UserEntity::getDelFlag, Contants.NO);
         return userMapper.selectOne(wrapper);
     }
 
@@ -67,8 +72,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         UserEntity entity = userMapper.selectById(id);
         if (entity != null) {
             entity.setUpdateTime(new Date());
-            entity.setDelFlag(1);
+            entity.setDelFlag(Contants.YES);
             userMapper.updateById(entity);
         }
+    }
+
+    @Override
+    public IPage<UserEntity> getList(UserDto dto) {
+        LambdaQueryWrapper<UserEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.isNotBlank(dto.getName()), UserEntity::getName, dto.getName());
+        wrapper.eq(UserEntity::getDelFlag, Contants.NO);
+        IPage<UserEntity> page = new Page<>(dto.getPageNo(), dto.getPageSize());
+        return userMapper.selectPage(page, wrapper);
     }
 }
