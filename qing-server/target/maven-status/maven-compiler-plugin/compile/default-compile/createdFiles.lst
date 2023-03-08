@@ -1,0 +1,5 @@
+com\gj\qing\controller\UserController.class
+com\gj\qing\dao\UserMapper.class
+com\gj\qing\QingServerApplication.class
+com\gj\qing\service\impl\UserServiceImpl.class
+com\gj\qing\service\UserSerivce.class

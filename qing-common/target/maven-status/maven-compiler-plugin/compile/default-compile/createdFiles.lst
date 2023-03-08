@@ -1,0 +1,9 @@
+com\gj\qing\config\MyBatisPlusConfig.class
+com\gj\qing\mode\entity\BaseEntity.class
+com\gj\qing\base\PageRequest.class
+com\gj\qing\exception\OlsenException.class
+com\gj\qing\ResultInfo.class
+com\gj\qing\contants\Contants.class
+com\gj\qing\exception\OlsenExceptionEnum.class
+com\gj\qing\mode\dto\UserDto.class
+com\gj\qing\mode\entity\UserEntity.class
