@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/qing-common/qing-common.iml" filepath="$PROJECT_DIR$/qing-common/qing-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/qing-server/qing-server.iml" filepath="$PROJECT_DIR$/qing-server/qing-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test.iml" filepath="$PROJECT_DIR$/test.iml" />
     </modules>
   </component>
 </project>
