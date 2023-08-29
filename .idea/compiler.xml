@@ -12,8 +12,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="qing-common" target="1.8" />
-      <module name="qing-server" target="1.8" />
       <module name="qing_server" target="17" />
       <module name="test" target="1.8" />
     </bytecodeTargetLevel>
@@ -23,7 +21,7 @@
       <module name="qing-common" options="-parameters" />
       <module name="qing-server" options="-parameters" />
       <module name="qing_server" options="-parameters" />
-      <module name="test" options="-parameters" />
+      <module name="test" options="" />
     </option>
   </component>
 </project>
