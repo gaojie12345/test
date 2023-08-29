@@ -5,12 +5,13 @@ import com.gj.qing.ResultInfo;
 import com.gj.qing.mode.dto.UserDto;
 import com.gj.qing.mode.entity.UserEntity;
 import com.gj.qing.service.UserSerivce;
-import com.gj.qing.socket.WebSocket;
+import com.gj.qing.test.FastJsonTest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Auther: Gaojie
@@ -24,9 +25,6 @@ public class UserController {
 
     @Resource
     private UserSerivce userSerivce;
-
-    @Resource
-    private WebSocket webSocket;
 
 
     @PostMapping("/save")
@@ -60,9 +58,4 @@ public class UserController {
         return ResultInfo.success(page);
     }
 
-    @PostMapping("/test")
-    public ResultInfo<Object> test(@RequestBody UserDto dto) throws IOException {
-        webSocket.sendMessageByUserId(dto.getId().toString(), dto.getName());
-        return ResultInfo.success();
-    }
 }
